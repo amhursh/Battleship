@@ -15,4 +15,4 @@ class Board
 end
 
 board = Board.new(4)
-p board
+p board.assign_spaces_to_rows
