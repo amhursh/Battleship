@@ -7,7 +7,7 @@ class Board
 
   def initialize(size)
     @size = size
-    @board = create_spaces
+    @board = board
   end
 
   include BoardBuilder
@@ -15,4 +15,3 @@ class Board
 end
 
 board = Board.new(4)
-p board.create_spaces
