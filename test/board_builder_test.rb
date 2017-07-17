@@ -1,6 +1,8 @@
 require 'simplecov'
 SimpleCov.start
 
+require 'pry'
+
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/board'
@@ -46,8 +48,17 @@ class BoardBuilderTest < Minitest::Test
 
   def test_final_board
     board = Board.new(4)
-    expected =
-    assert_equal expected, board.build_final_board
+    expected = board.build_final_grid.values.map do |row|
+      row.values.map do |value|
+        value
+      end
+    end.flatten
+    expected_1 = expected[0]
+    expected_2 = expected[1]
+    expected_3 = expected[2]
+    assert_instance_of Space, expected_1
+    assert_instance_of Space, expected_2
+    assert_instance_of Space, expected_3
   end
 
 

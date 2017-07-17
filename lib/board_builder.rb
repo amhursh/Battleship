@@ -35,7 +35,7 @@ module BoardBuilder
     end.to_h
   end
 
-  def build_final_board
+  def build_final_grid
     final_board = {}
     build_board_hash_with_rows.each do |row, coordinates|
       final_board[row] = create_spaces(coordinates)

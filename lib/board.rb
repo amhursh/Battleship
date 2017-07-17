@@ -7,11 +7,9 @@ class Board
 
   def initialize(size)
     @size = size
-    @board = board
+    @board = build_final_grid
   end
 
   include BoardBuilder
 
 end
-
-board = Board.new(4)
