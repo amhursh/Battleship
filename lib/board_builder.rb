@@ -25,7 +25,3 @@ module BoardBuilder
   end
 
 end
-
-# board = Board_builder.new
-# p board.build_board_labels
-# p board.create_spaces
