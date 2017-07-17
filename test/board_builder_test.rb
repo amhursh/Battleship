@@ -45,9 +45,9 @@ class BoardBuilderTest < Minitest::Test
   end
 
   def test_final_board
-    skip
     board = Board.new(4)
-    assert_equal "dlkjsfd", board.build_final_board
+    expected =
+    assert_equal expected, board.build_final_board
   end
 
 
