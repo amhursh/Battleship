@@ -8,7 +8,7 @@ class Space
   def initialize(coordinates)
     @coordinates = coordinates
     @shelled = false
-    @occupied = false
+    @occupied = [false, nil]
   end
 
 end

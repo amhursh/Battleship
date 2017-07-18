@@ -5,10 +5,13 @@ require './lib/communication'
 
 class Game
 
-  attr_accessor :size
+  attr_accessor :size,
+                :player,
+                :computer
 
   def initialize
     @size = 0
+    @player = nil
   end
 
 # start game
@@ -58,7 +61,7 @@ class Game
       @size = 12
     else
       puts Communication.invalid_menu_choice_message
-      # difficulty_menu_interaction
+      difficulty_menu_interaction
     end
   end
 
@@ -66,8 +69,8 @@ class Game
   # setup phase
 
   def generate_players
-    player = Player.new(@size)
-    computer = ComputerPlayer.new(@size)
+    @player = Player.new(@size)
+    @computer = ComputerPlayer.new(@size)
   end
 
 
