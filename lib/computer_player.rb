@@ -1,14 +1,11 @@
-require './lib/game'
-require './lib/board'
+class ComputerPlayer
 
-class Player
-
-  attr_reader :player_board,
+  attr_reader :computer_board,
               :shells_fired,
               :ships
 
   def initialize(size)
-    @player_board = Board.new(size)
+    @computer_board = Board.new(size)
     @shells_fired = 0
     @ships = 0
   end

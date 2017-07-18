@@ -3,11 +3,12 @@ require './lib/space'
 
 class Board
 
-  attr_reader :board
+  attr_reader :game_board,
+              :size
 
   def initialize(size)
     @size = size
-    @board = build_final_grid
+    @game_board = build_final_grid
   end
 
   include BoardBuilder

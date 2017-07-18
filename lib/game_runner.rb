@@ -1,11 +1,15 @@
-# Start Game Sequence
+require './lib/game'
+require 'pry'
+
+class GameRunner
+
+  game = Game.new
+
+  game.game_start
+  game.main_menu_notification
+  game.main_menu_interaction
+  game.difficulty_menu_interaction
+  p game.generate_players
 
 
-
-# Computer Ship Placement
-# Player Ship Placement
-# Player Shot Sequence
-# Computer Shot Sequence
-# Ship Hit Sequence
-# End Game Sequence
-# Setup SimpleCov to monitor test coverage along the way
+end
