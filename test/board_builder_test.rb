@@ -38,7 +38,8 @@ class BoardBuilderTest < Minitest::Test
 
   def test_board_labels_split_into_rows_of_given_size
     board = Board.new(4)
-    assert_equal [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"], ["C1", "C2", "C3", "C4"], ["D1", "D2", "D3", "D4"]], board.split_board_labels_by_row
+    expected = [["A1", "A2", "A3", "A4"], ["B1", "B2", "B3", "B4"], ["C1", "C2", "C3", "C4"], ["D1", "D2", "D3", "D4"]]
+    assert_equal expected, board.split_board_labels_by_row
   end
 
   def test_board_can_be_built_as_hash_with_rows_as_keys

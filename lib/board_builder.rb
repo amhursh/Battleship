@@ -26,7 +26,7 @@ module BoardBuilder
   end
 
   def split_board_labels_by_row
-    board_labels_by_row = build_board_labels.each_slice(@size).to_a
+    build_board_labels.each_slice(@size).to_a
   end
 
   def build_board_hash_with_rows

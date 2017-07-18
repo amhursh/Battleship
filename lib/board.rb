@@ -1,5 +1,6 @@
 require './lib/board_builder'
 require './lib/space'
+require './lib/ship'
 
 class Board
 
