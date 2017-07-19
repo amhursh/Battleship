@@ -1,6 +1,6 @@
 require './lib/board'
 
-class Communication
+module Communication
 
   def self.welcome
     "Welcome to Battleship\n\n"

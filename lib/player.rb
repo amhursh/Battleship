@@ -1,6 +1,11 @@
 # require './lib/game'
 require './lib/board'
 require './lib/ship'
+require './lib/space'
+require './lib/validation'
+require './lib/communication'
+
+require 'pry'
 
 class Player
 
@@ -28,4 +33,38 @@ class Player
 
   include Validation
 
+  include Communication
+
+  def place_ships
+    #determine_number_of_ships_to_place
+    #place_each_ship
+  end
+
+  def place_two_unit_ship(coordinates)
+    if coordinates.split.count == 2 && valid_coordinates_location?(coordinates)
+      coordinates.split.each do |coordinate|
+        @player_board.game_board[coordinate].add_ship(@player_ships[0])
+      end
+    else
+      Communication.invalid_menu_choice_message
+    end
+  end
+  #
+  # def place_three_unit_ship
+  #
+  # end
+  #
+  # def place_four_unit_ship
+  #
+  # end
+  #
+  # def place_five_unit_ship
+  #
+  # end
+
 end
+
+# player = Player.new(4)
+# player.determine_ships
+# player.place_two_unit_ship("A1 B1")
+# p player.player_board

@@ -36,4 +36,11 @@ class PlayerTest < Minitest::Test
     assert_equal 4, player_one.board_size
   end
 
+  def test_player_places_ships
+    player_one = Player.new(4)
+    player_one.place_two_unit_ship("A3 A4")
+
+    assert_equal true, player_one.player_board.game_board["A3"].occupied[0]
+  end
+
 end

@@ -15,13 +15,13 @@ class ValidationTest < Minitest::Test
   def test_that_checks_board_for_spaces
     player = Player.new(4)
 
-    assert player.check_if_coordinates_are_in_board("A4 A1")
-    refute player.check_if_coordinates_are_in_board("A1 A5")
+    assert player.coordinates_are_in_board?("A4 A1")
+    refute player.coordinates_are_in_board?("A1 A5")
 
     player2 = Player.new(8)
 
-    assert player2.check_if_coordinates_are_in_board("A4 H8")
-    refute player2.check_if_coordinates_are_in_board("A1 A12")
+    assert player2.coordinates_are_in_board?("A4 H8")
+    refute player2.coordinates_are_in_board?("A1 A12")
   end
 
   def test_coordinate_count
@@ -76,19 +76,19 @@ class ValidationTest < Minitest::Test
   def test_coordinates_are_connected_in_a_row
     player = Player.new(4)
 
-    assert player.check_if_coordinates_are_connected_in_row("A1 A2")
-    refute player.check_if_coordinates_are_connected_in_row("A1 B2")
-    assert player.check_if_coordinates_are_connected_in_row("D2 D3 D4")
-    refute player.check_if_coordinates_are_connected_in_row("D4 C3 B2")
+    assert player.coordinates_are_connected_in_row?("A1 A2")
+    refute player.coordinates_are_connected_in_row?("A1 B2")
+    assert player.coordinates_are_connected_in_row?("D2 D3 D4")
+    refute player.coordinates_are_connected_in_row?("D4 C3 B2")
   end
 
   def test_coordinates_are_connected_in_a_column
     player = Player.new(4)
 
-    assert player.check_if_coordinates_are_connected_in_column("A1 B1")
-    refute player.check_if_coordinates_are_connected_in_column("A1 B2")
-    assert player.check_if_coordinates_are_connected_in_column("A2 B2 C2")
-    refute player.check_if_coordinates_are_connected_in_column("A1 B1 C2")
+    assert player.coordinates_are_connected_in_column?("A1 B1")
+    refute player.coordinates_are_connected_in_column?("A1 B2")
+    assert player.coordinates_are_connected_in_column?("A2 B2 C2")
+    refute player.coordinates_are_connected_in_column?("A1 B1 C2")
   end
 
   def test_ascii_conversion
@@ -96,6 +96,30 @@ class ValidationTest < Minitest::Test
 
     assert_equal [65, 66], player.get_ascii_for_chars_in_array(["A", "B"])
     assert_equal [65, 66, 67], player.get_ascii_for_chars_in_array(["A", "B", "C"])
+  end
+
+  def test_valid_coordinates_location
+    player = Player.new(4)
+
+    assert player.valid_coordinates_location?("A1 A2")
+    assert player.valid_coordinates_location?("A1 B1")
+    assert player.valid_coordinates_location?("C3 C4")
+    assert player.valid_coordinates_location?("D4 C4")
+    refute player.valid_coordinates_location?("A1 A3")
+    refute player.valid_coordinates_location?("A1 B2")
+    refute player.valid_coordinates_location?("D4 D1")
+    refute player.valid_coordinates_location?("C3 D4")
+
+    player = Player.new(8)
+
+    assert player.valid_coordinates_location?("A1 A2 A3")
+    assert player.valid_coordinates_location?("A1 B1 C1")
+    assert player.valid_coordinates_location?("C3 C4 C2")
+    assert player.valid_coordinates_location?("D4 C4 B4")
+    refute player.valid_coordinates_location?("A1 A3 A4")
+    refute player.valid_coordinates_location?("A1 B2 B3")
+    refute player.valid_coordinates_location?("D4 D1 D2")
+    refute player.valid_coordinates_location?("C3 D4 B2")
   end
 
 end

@@ -30,7 +30,7 @@ class BoardBuilderTest < Minitest::Test
 
   def test_board_has_spaces
     board = Board.new(4)
-    b_keys = board.create_spaces(board.build_board_labels).keys.map do |key|
+    b_keys = board.create_spaces_for_array(board.build_board_labels).keys.map do |key|
       key
     end
     assert_equal ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"], b_keys
@@ -59,9 +59,9 @@ class BoardBuilderTest < Minitest::Test
     assert_equal expected, board.build_board_hash_with_columns
   end
 
-  def test_final_board
+  def test_final_board_with_rows_as_keys
     board = Board.new(4)
-    expected = board.build_final_grid.values.map do |row|
+    expected = board.build_final_grid_with_rows_as_keys.values.map do |row|
       row.values.map do |value|
         value
       end

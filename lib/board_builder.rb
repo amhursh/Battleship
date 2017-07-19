@@ -18,11 +18,15 @@ module BoardBuilder
     board_labels.flatten
   end
 
-  def create_spaces(coordinates)
+  def create_spaces_for_array(coordinates)
     spaces = coordinates.map do |coordinates|
       [coordinates, Space.new(coordinates)]
     end
     spaces.to_h
+  end
+
+  def create_space_for_coordinate(coordinate)
+    coordinate = [coordinate, Space.new(coordinate)]
   end
 
   def split_board_labels_by_row
@@ -51,12 +55,23 @@ module BoardBuilder
     end.to_h
   end
 
-  def build_final_grid
+  def build_final_grid_with_rows_as_keys
     final_board = {}
     build_board_hash_with_rows.each do |row, coordinates|
-      final_board[row] = create_spaces(coordinates)
+      final_board[row] = create_spaces_for_array(coordinates)
     end
     final_board
+  end
+
+  def build_final_game_board
+    final_game_board = {}
+    final_board = build_board_labels.map do |coordinate|
+      create_space_for_coordinate(coordinate)
+    end
+    final_board.each do |coordinate|
+      final_game_board[coordinate[0]] = coordinate[1]
+    end
+    final_game_board
   end
 
 end
