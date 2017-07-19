@@ -26,6 +26,6 @@ class Player
     end
   end
 
-  extend Validation
+  include Validation
 
 end
