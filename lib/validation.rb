@@ -10,16 +10,27 @@ module Validation
 
   def check_if_coordinates_are_connected_in_row(coordinates)
     length = count_coordinates(coordinates)
-    organized = break_down_coordinate_array(coordinates, length)
-    return true if same_row?(organized[1]) && (organized[0].each_cons())
+    organized = break_down_coordinate_array_for_rows(coordinates, length)
+    same_row?(organized[1]) && consecutive?(organized[0])
+  end
 
+  def check_if_coordinates_are_connected_in_column(coordinates)
+    length = count_coordinates(coordinates)
+    organized = break_down_coordinate_array_for_columns(coordinates, length)
+    same_column?(organized[0]) && consecutive?(organized[1])
   end
 
   def consecutive?(array)
-    
+    array.each_cons(2).all? do |x, y|
+      y == x + 1
+    end
   end
 
   def same_row?(array)
+    array.uniq.length == 1
+  end
+
+  def same_column?(array)
     array.uniq.length == 1
   end
 
@@ -27,12 +38,24 @@ module Validation
     coordinate_count = coordinates.split.count
   end
 
-  def break_down_coordinate_array(coordinates, length)
+  def break_down_coordinate_array_for_rows(coordinates, length)
     organized = coordinates.gsub(/\s+/, "").split("").sort.each_slice(length).to_a
     organized[0] = organized[0].map do |num|
       num.to_i
     end
     organized
+  end
+
+  def break_down_coordinate_array_for_columns(coordinates, length)
+    organized = coordinates.gsub(/\s+/, "").split("").sort.each_slice(length).to_a
+    organized[1] = get_ascii_for_chars_in_array(organized[1])
+    organized
+  end
+
+  def get_ascii_for_chars_in_array(array)
+    array.map do |char|
+      char.ord
+    end
   end
 
 
