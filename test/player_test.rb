@@ -39,8 +39,24 @@ class PlayerTest < Minitest::Test
   def test_player_places_ships
     player_one = Player.new(4)
     player_one.place_two_unit_ship("A3 A4")
+    player_one.place_three_unit_ship("D2 D3 D1")
 
-    assert_equal true, player_one.player_board.game_board["A3"].occupied[0]
+    assert player_one.player_board.game_board["A3"].occupied[0]
+    assert player_one.player_board.game_board["A4"].occupied[0]
+    assert player_one.player_board.game_board["D1"].occupied[0]
+    assert player_one.player_board.game_board["D2"].occupied[0]
+    assert player_one.player_board.game_board["D3"].occupied[0]
+  end
+
+  def test_player_invalid_ship_placement
+    player_one = Player.new(4)
+
+    assert_equal "Invalid choice. Please try again.\n", player_one.place_two_unit_ship("A3 B2")
+
+    player_two = Player.new(4)
+    player_two.place_two_unit_ship("A1 A2")
+
+    assert_equal "Invalid choice. Please try again.\n", player_two.place_three_unit_ship("A2 B2 C2")
   end
 
 end

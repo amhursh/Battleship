@@ -122,4 +122,14 @@ class ValidationTest < Minitest::Test
     refute player.valid_coordinates_location?("C3 D4 B2")
   end
 
+  def test_if_space_is_occupied
+    player = Player.new(4)
+    player.place_two_unit_ship("A1 A2")
+
+    assert player.any_spaces_occupied?("A1 A2")
+    assert player.any_spaces_occupied?("A2 B2 C2")
+    assert player.any_spaces_occupied?("B1 C1 A1")
+    refute player.any_spaces_occupied?("B1 C1")
+  end
+
 end

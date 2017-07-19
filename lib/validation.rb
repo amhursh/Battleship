@@ -27,6 +27,14 @@ module Validation
     )
   end
 
+  def any_spaces_occupied?(coordinates)
+    results = []
+    coordinates.split.each do |coordinate|
+      results << @player_board.game_board[coordinate].occupied[0]
+    end
+    results.include?(true)
+  end
+
   def consecutive?(array)
     array.each_cons(2).all? do |x, y|
       y == x + 1
