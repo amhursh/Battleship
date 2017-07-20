@@ -64,7 +64,7 @@ class Player
   # end
 
     #place_each_ship
-  end
+  
 
   def place_two_unit_ship(coordinates)
     if coordinates.split.count == 2 && valid_coordinates_location?(coordinates) && !any_spaces_occupied?(coordinates)

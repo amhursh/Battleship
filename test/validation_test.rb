@@ -7,6 +7,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/validation'
 require './lib/player'
+require './lib/computer_player'
+require './lib/board'
 
 class ValidationTest < Minitest::Test
 
@@ -80,6 +82,11 @@ class ValidationTest < Minitest::Test
     refute player.coordinates_are_connected_in_row?("A1 B2")
     assert player.coordinates_are_connected_in_row?("D2 D3 D4")
     refute player.coordinates_are_connected_in_row?("D4 C3 B2")
+
+    player2 = Player.new(12)
+
+    assert player.coordinates_are_connected_in_row?("A11 A12")
+    refute player.coordinates_are_connected_in_row?("A12 C12")
   end
 
   def test_coordinates_are_connected_in_a_column
@@ -132,4 +139,35 @@ class ValidationTest < Minitest::Test
     refute player.any_spaces_occupied?("B1 C1")
   end
 
+  def test_possible_row_values_for_coordinate
+    computer = ComputerPlayer.new(4)
+    start = "A4"
+    board = computer.computer_board
+    results = get_possible_row_values(start, board)
+    modified_results = results.map { |x| x[0]}
+    modified_results = modified_results.uniq
+
+    assert_equal ["A"], modified_results
+  end
+
+  def test_possible_col_values_for_coordinate
+    computer = ComputerPlayer.new(4)
+    start = "A4"
+    board = computer.computer_board
+    results = get_possible_col_values(start, board)
+    modified_results = results.map { |x| x[1]}
+    modified_results = modified_results.uniq
+
+    assert_equal ["4"], modified_results
+  end
+
+  def test_all_possible_col_and_row_values
+    computer = ComputerPlayer.new(4)
+    start = "A3"
+    board = computer.computer_board
+    length = 2
+    results = get_all_possible_col_and_row_values(start, board, length)
+
+    assert_equal ["A2", "A4", "B3"], results
+  end
 end

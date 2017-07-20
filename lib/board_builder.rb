@@ -44,10 +44,16 @@ module BoardBuilder
   end
 
   def build_board_hash_with_rows
-    split_board_labels_by_row.map.with_index do |row, index|
-      [(index + 1), row]
+    split_board_labels_by_row.map do |row|
+      [row[0][0], row]
     end.to_h
   end
+
+  # def build_board_hash_with_rows
+  #   split_board_labels_by_row.map.with_index do |row, index|
+  #     [(index + 1), row]
+  #   end.to_h
+  # end
 
   def build_board_hash_with_columns
     split_board_labels_by_column.map.with_index do |column, index|
