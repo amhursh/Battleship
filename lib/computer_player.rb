@@ -1,14 +1,16 @@
 require './lib/player'
 require './lib/validation'
 require './lib/board'
+require './lib/ship'
 require 'pry'
 
 class ComputerPlayer < Player
 
 include Validation
 
-  attr_reader :computer_board,
-              :shells_fired,
+  attr_accessor :computer_board
+
+  attr_reader :shells_fired,
               :computer_ships,
               :board_size
 
@@ -16,7 +18,7 @@ include Validation
     @board_size = board_size
     @computer_board = Board.new(board_size)
     @shells_fired = 0
-    @player_ships = []
+    @computer_ships = []
   end
 
   def random_starting_coordinate_for_ship

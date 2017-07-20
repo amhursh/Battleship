@@ -8,7 +8,9 @@ class GameRunner
   game.game_start
   game.main_menu_notification
   game.main_menu_interaction
-  p game.generate_players
+  game.generate_players
+  game.add_ships_to_inventory
+  p game.computer_place_ships
 
 
 end

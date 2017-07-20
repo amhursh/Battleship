@@ -19,6 +19,3 @@ class Space
   end
 
 end
-#
-# space = Space.new("A1")
-# p space.add_ship(Ship.new(2))

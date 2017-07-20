@@ -1,6 +1,7 @@
 require './lib/board'
 require './lib/player'
 require './lib/computer_player'
+require './lib/validation'
 require './lib/communication'
 
 class Game
@@ -12,10 +13,8 @@ class Game
   def initialize
     @size = 0
     @player = nil
+    @computer = nil
   end
-
-# start game
-# main menu
 
   def game_start
     puts Communication.welcome
@@ -24,11 +23,6 @@ class Game
   def main_menu_notification
     puts Communication.main_menu
   end
-
-# player chooses:
-  # quit
-  # instructions
-  # play
 
   def main_menu_interaction
     choice = gets.chomp.downcase
@@ -47,8 +41,6 @@ class Game
     end
   end
 
-# if play...
-  # player chooses difficulty
 
   def difficulty_menu_interaction
     puts Communication.select_difficulty_menu
@@ -65,20 +57,39 @@ class Game
     end
   end
 
-
-  # setup phase
-
   def generate_players
     @player = Player.new(@size)
     @computer = ComputerPlayer.new(@size)
   end
 
+  def add_ships_to_inventory
+    player.determine_ships(player.player_ships)
+    computer.determine_ships(computer.computer_ships)
+  end
 
-    # generates blank boards for given size
-      # one computer board
-      # one player board
-    # generates computer ships (number of ships dependent on difficulty)
-    # generates player ships (number of ships dependent on difficulty)
+  def computer_place_ships
+    if @size == 4
+      computer.place_two_unit_ship((computer.random_coordinates_for_two_unit_ship(2).join(" ")), computer.computer_board, computer.computer_ships)
+      coords_two = computer.random_coordinates_for_three_unit_ship(3).join(" ")
+      while !computer.valid_coordinates_location?(coords_two, computer.computer_board)
+        coords_two = computer.random_coordinates_for_three_unit_ship(3).join(" ")
+      end
+      computer.place_three_unit_ship((coords_two), computer.computer_board, computer.computer_ships)
+    elsif @size == 8
+      computer.place_two_unit_ship((computer.random_coordinates_for_two_unit_ship(2).join(" ")), computer.computer_board, computer.computer_ships)
+      coords_three = computer.random_coordinates_for_three_unit_ship(3).join(" ")
+      while !computer.valid_coordinates_location?(coords_three, computer.computer_board)
+        coords_three = computer.random_coordinates_for_three_unit_ship(3).join(" ")
+      end
+      computer.place_three_unit_ship((coords_three), computer.computer_board, computer.computer_ships)
+      coords_four = computer.random_coordinates_for_four_unit_ship(3).join(" ")
+      while !computer.valid_coordinates_location?(coords_four, computer.computer_board)
+        coords_four = computer.random_coordinates_for_four_unit_ship(3).join(" ")
+      end
+      computer.place_four_unit_ship((coords_four), computer.computer_board, computer.computer_ships)
+    end
+    binding.pry
+  end
 
     # computer places ships
       # validate placement

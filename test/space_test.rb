@@ -36,6 +36,7 @@ class SpaceTest < Minitest::Test
     space.add_ship(Ship.new(2))
 
     assert_equal true, space.occupied[0]
+    assert_instance_of Ship, space.occupied[1]
   end
 
 end

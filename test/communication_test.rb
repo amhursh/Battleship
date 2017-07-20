@@ -19,7 +19,7 @@ class CommunicationTest < Minitest::Test
 
   def test_invalid_main_menu_choice
     message = Communication.invalid_menu_choice_message
-    assert_equal "Invalid choice. Please try again:\n>", message
+    assert_equal "Invalid choice. Please try again.\n", message
   end
 
   def test_select_difficulty_menu

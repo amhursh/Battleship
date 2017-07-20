@@ -3,9 +3,9 @@ require './lib/board_builder'
 
 module Validation
 
-  def coordinates_are_in_board?(coordinates)
+  def coordinates_are_in_board?(coordinates, board)
     given_coordinates = coordinates.split
-    board_coordinates = @player_board.split_board_labels_by_row.flatten
+    board_coordinates = board.split_board_labels_by_row.flatten
     (given_coordinates - board_coordinates).empty?
   end
 
@@ -21,17 +21,17 @@ module Validation
     same_column?(organized[0]) && consecutive?(organized[1])
   end
 
-  def valid_coordinates_location?(coordinates)
-    coordinates_are_in_board?(coordinates) && (
+  def valid_coordinates_location?(coordinates, board)
+    coordinates_are_in_board?(coordinates, board) && (
     coordinates_are_connected_in_row?(coordinates) ||
     coordinates_are_connected_in_column?(coordinates)
     )
   end
 
-  def any_spaces_occupied?(coordinates)
+  def any_spaces_occupied?(coordinates, board)
     results = []
     coordinates.split.each do |coordinate|
-      results << @player_board.game_board[coordinate].occupied[0]
+      results << board.game_board[coordinate].occupied[0]
     end
     results.include?(true)
   end

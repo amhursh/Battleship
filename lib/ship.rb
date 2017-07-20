@@ -7,10 +7,9 @@ class Ship
 
   def initialize(length)
     @length = length
-    @health = nil
+    @health = set_health
     @sunk = false
-    set_type
-    set_health
+    @type = set_type
   end
 
   def set_type

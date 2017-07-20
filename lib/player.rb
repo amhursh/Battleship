@@ -1,4 +1,3 @@
-# require './lib/game'
 require './lib/board'
 require './lib/ship'
 require './lib/space'
@@ -8,6 +7,10 @@ require './lib/communication'
 require 'pry'
 
 class Player
+
+  include Validation
+
+  include Communication
 
   attr_reader :player_board,
               :shells_fired,
@@ -21,85 +24,52 @@ class Player
     @player_ships = []
   end
 
-  def determine_ships
+  def determine_ships(player_ships = @player_ships)
     if board_size == 4
-      @player_ships = [Ship.new(2), Ship.new(3)]
+      player_ships = [Ship.new(2), Ship.new(3)]
     elsif board_size == 8
-      @player_ships = [Ship.new(2), Ship.new(3), Ship.new(4)]
+      player_ships = [Ship.new(2), Ship.new(3), Ship.new(4)]
     elsif board_size == 12
-      @player_ships = [Ship.new(2), Ship.new(3), Ship.new(4), Ship.new(5)]
+      player_ships = [Ship.new(2), Ship.new(3), Ship.new(4), Ship.new(5)]
     end
   end
 
-  include Validation
-
-  include Communication
-
-  # def place_ships(coordinates, number_of_ships = @player_ships.count)
-  #   if number_of_ships == 2
-  #
-  #   elsif number_of_ships == 3
-  #
-  #   else
-  #
-  #   end
-  # end
-  #
-  # def place_ships_easy(coordinates)
-  #   place_two_unit_ship(coordinates)
-  #   place_three_unit_ship(coordinates)
-  # end
-  #
-  # def place_ships_intermediate(coordinates)
-  #   place_two_unit_ship(coordinates)
-  #   place_three_unit_ship(coordinates)
-  #   place_four_unit_ship(coordinates)
-  # end
-  #
-  # def place_ships_difficult(coordinates)
-  #   place_two_unit_ship(coordinates)
-  #   place_three_unit_ship(coordinates)
-  #   place_four_unit_ship(coordinates)
-  #   place_five_unit_ship(coordinates)
-  # end
-
-    #place_each_ship
-  
-
-  def place_two_unit_ship(coordinates)
-    if coordinates.split.count == 2 && valid_coordinates_location?(coordinates) && !any_spaces_occupied?(coordinates)
+  def place_two_unit_ship(coordinates, board = @player_board, ships = @player_ships)
+    if coordinates.split.count == 2 && valid_coordinates_location?(coordinates, board) && !any_spaces_occupied?(coordinates, board)
       coordinates.split.each do |coordinate|
-        @player_board.game_board[coordinate].add_ship(@player_ships[0])
+        board.game_board[coordinate].add_ship(ships[0])
+      end
+    elsif board == @player_board
+      Communication.invalid_menu_choice_message
+    else
+      nil
+    end
+  end
+
+  def place_three_unit_ship(coordinates, board = @player_board, ships = @player_ships)
+    if coordinates.split.count == 3 && valid_coordinates_location?(coordinates, board) && !any_spaces_occupied?(coordinates, board)
+      coordinates.split.each do |coordinate|
+        board.game_board[coordinate].add_ship(ships[0])
       end
     else
       Communication.invalid_menu_choice_message
     end
   end
 
-  def place_three_unit_ship(coordinates)
-    if coordinates.split.count == 3 && valid_coordinates_location?(coordinates) && !any_spaces_occupied?(coordinates)
+  def place_four_unit_ship(coordinates, board = @player_board, ships = @player_ships)
+    if coordinates.split.count == 4 && valid_coordinates_location?(coordinates, board) && !any_spaces_occupied?(coordinates, board)
       coordinates.split.each do |coordinate|
-        @player_board.game_board[coordinate].add_ship(@player_ships[0])
+        board.game_board[coordinate].add_ship(ships[0])
       end
     else
       Communication.invalid_menu_choice_message
     end
   end
 
-  def place_four_unit_ship(coordinates)
-    if coordinates.split.count == 4 && valid_coordinates_location?(coordinates) && !any_spaces_occupied?(coordinates)
+  def place_five_unit_ship(coordinates, board = @player_board, ships = @player_ships)
+    if coordinates.split.count == 5 && valid_coordinates_location?(coordinates, board) && !any_spaces_occupied?(coordinates, board)
       coordinates.split.each do |coordinate|
-        @player_board.game_board[coordinate].add_ship(@player_ships[0])
-      end
-    else
-      Communication.invalid_menu_choice_message
-    end
-  end
-
-  def place_five_unit_ship(coordinates)
-    if coordinates.split.count == 5 && valid_coordinates_location?(coordinates) && !any_spaces_occupied?(coordinates)
-      coordinates.split.each do |coordinate|
-        @player_board.game_board[coordinate].add_ship(@player_ships[0])
+        board.game_board[coordinate].add_ship(ships[0])
       end
     else
       Communication.invalid_menu_choice_message
@@ -107,8 +77,3 @@ class Player
   end
 
 end
-
-# player = Player.new(4)
-# player.determine_ships
-# player.place_two_unit_ship("A1 B1")
-# p player.player_board.game_board
